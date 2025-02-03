@@ -1,11 +1,13 @@
 import '../css/app.css';
+import '../../resources/css/app.scss';
 import './bootstrap';
 
 import { createInertiaApp } from '@inertiajs/vue3';
 import { resolvePageComponent } from 'laravel-vite-plugin/inertia-helpers';
 import { createApp, DefineComponent, h } from 'vue';
 import { ZiggyVue } from '../../vendor/tightenco/ziggy';
-
+// import JobSearch from './Components/JobSearch.vue';
+// import CreateJob from './Pages/CreateJob.vue';
 const appName = import.meta.env.VITE_APP_NAME || 'Laravel';
 
 createInertiaApp({
@@ -16,10 +18,12 @@ createInertiaApp({
             import.meta.glob<DefineComponent>('./Pages/**/*.vue'),
         ),
     setup({ el, App, props, plugin }) {
-        createApp({ render: () => h(App, props) })
-            .use(plugin)
-            .use(ZiggyVue)
-            .mount(el);
+        const app = createApp({ render: () => h(App, props) });
+        app.use(plugin);
+        app.use(ZiggyVue);
+        // app.component('job-search', JobSearch);
+        // app.component('create-job', CreateJob);
+        app.mount(el);
     },
     progress: {
         color: '#4B5563',
